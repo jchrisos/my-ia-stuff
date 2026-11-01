@@ -1,0 +1,13 @@
+#!/usr/bin/env bash
+set -euo pipefail
+
+PROMPT="${*:-$(cat)}"
+
+MODEL_HAIKU="claude-haiku-5-5"
+MODEL_OPUS="claude-opus-5-5"
+
+TARGET_MODEL="$MODEL_HAIKU"
+TIMEOUT_SECONDS="${CLAUDE_TIMEOUT:-600}"
+PERMISSION_MODE="${CLAUDE_PERMISSION_MODE:-auto}"
+
+timeout "$TIMEOUT_SECONDS" claude --model "$TARGET_MODEL" --permission-mode "$PERMISSION_MODE" --permission-prompts none -p "$PROMPT" < /dev/null
