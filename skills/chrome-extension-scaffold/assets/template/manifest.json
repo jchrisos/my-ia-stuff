@@ -1,0 +1,53 @@
+{
+  "manifest_version": 3,
+  "name": "{{NAME}}",
+  "version": "{{VERSION}}",
+  "description": "{{DESCRIPTION}}",
+  "minimum_chrome_version": "120",
+
+  "permissions": ["storage", "scripting"],
+
+  "host_permissions": {{MATCHES_JSON}},
+
+  "background": {
+    "service_worker": "background/service-worker.js",
+    "type": "module"
+  },
+
+  "action": {
+    "default_popup": "popup/popup.html",
+    "default_title": "{{TITLE}}",
+    "default_icon": { "16": "icons/16.png", "32": "icons/32.png" }
+  },
+
+  "content_scripts": [
+    {
+      "matches": {{MATCHES_JSON}},
+      "css": ["theme/dark.css", "content/extension.css"],
+      "run_at": "document_start",
+      "all_frames": false
+    },
+    {
+      "matches": {{MATCHES_JSON}},
+      "js": [
+        "content/selectors.js",
+        "content/settings.js",
+        "content/toast.js",
+        "content/clipboard.js",
+        "content/theme.js",
+        "content/features/sample-action.js",
+        "content/observer.js",
+        "content/main.js"
+      ],
+      "run_at": "document_idle",
+      "all_frames": false
+    }
+  ],
+
+  "icons": {
+    "16": "icons/16.png",
+    "32": "icons/32.png",
+    "48": "icons/48.png",
+    "128": "icons/128.png"
+  }
+}

@@ -1,0 +1,11 @@
+{
+  "name": "{{NAME}}",
+  "version": "{{VERSION}}",
+  "private": true,
+  "description": "{{DESCRIPTION}}",
+  "scripts": {
+    "test": "node --test 'tests/*.test.mjs'",
+    "check": "make check",
+    "package": "make package"
+  }
+}

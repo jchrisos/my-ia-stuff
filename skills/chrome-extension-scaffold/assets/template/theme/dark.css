@@ -1,0 +1,171 @@
+/* {{NAME}} — dark theme.
+ *
+ * This stylesheet is ALWAYS injected but INERT without html.{{PREFIX}}-dark, so the live
+ * toggle is a class flip with no re-injection (see content/theme.js).
+ *
+ * Ground rules:
+ *  - Scope every rule under html.{{PREFIX}}-dark. Use specificity, never !important: an
+ *    !important here is impossible for the site to override and will break its own states.
+ *  - Do NOT wrap this in @layer. Unlayered page CSS always wins against a layered
+ *    stylesheet, so the theme would silently stop applying.
+ *  - Resting-state rules do not cover :hover, :focus, :active, [aria-selected] or the
+ *    site's own ".selected" class. Those are separate rules and the usual reason a theme
+ *    "works" at rest but flashes light on interaction. Verify by forcing the pseudo-class
+ *    (Chrome DevTools: Styles pane -> :hov -> :hover), not by eye at rest.
+ *  - Raise specificity by doubling the class (html.x-dark.x-dark) if the site's own state
+ *    rules still win. That keeps the theme reversible without !important.
+ *
+ * Extend this with the site's real containers. The element-level rules below are only a
+ * safe neutral base.
+ */
+
+html.{{PREFIX}}-dark {
+  color-scheme: dark; /* native scrollbars, form controls, autofill */
+
+  --{{PREFIX}}-bg: #12161c;
+  --{{PREFIX}}-surface: #1a2029;
+  --{{PREFIX}}-surface-2: #232b36;
+  --{{PREFIX}}-text: #e6e9ef;
+  --{{PREFIX}}-muted: #a9b1bf;
+  --{{PREFIX}}-border: #313a47;
+  --{{PREFIX}}-accent: #6ea8fe;
+  --{{PREFIX}}-accent-contrast: #0b1220;
+  --{{PREFIX}}-selected: #2b4a6f;
+
+  background-color: var(--{{PREFIX}}-bg);
+  color: var(--{{PREFIX}}-text);
+}
+
+html.{{PREFIX}}-dark body {
+  background-color: var(--{{PREFIX}}-bg);
+  color: var(--{{PREFIX}}-text);
+}
+
+html.{{PREFIX}}-dark h1,
+html.{{PREFIX}}-dark h2,
+html.{{PREFIX}}-dark h3,
+html.{{PREFIX}}-dark h4,
+html.{{PREFIX}}-dark h5,
+html.{{PREFIX}}-dark h6 {
+  color: var(--{{PREFIX}}-text);
+}
+
+html.{{PREFIX}}-dark p,
+html.{{PREFIX}}-dark small,
+html.{{PREFIX}}-dark label,
+html.{{PREFIX}}-dark legend {
+  color: var(--{{PREFIX}}-text);
+}
+
+html.{{PREFIX}}-dark a {
+  color: var(--{{PREFIX}}-accent);
+}
+
+html.{{PREFIX}}-dark a:hover {
+  color: #9cc4ff;
+}
+
+html.{{PREFIX}}-dark hr {
+  border-color: var(--{{PREFIX}}-border);
+}
+
+html.{{PREFIX}}-dark code,
+html.{{PREFIX}}-dark pre {
+  background-color: var(--{{PREFIX}}-surface);
+  color: var(--{{PREFIX}}-text);
+  border-color: var(--{{PREFIX}}-border);
+}
+
+/* ---- tables ------------------------------------------------------------ */
+html.{{PREFIX}}-dark table {
+  color: var(--{{PREFIX}}-text);
+  border-color: var(--{{PREFIX}}-border);
+}
+
+html.{{PREFIX}}-dark th,
+html.{{PREFIX}}-dark td {
+  border-color: var(--{{PREFIX}}-border);
+}
+
+html.{{PREFIX}}-dark thead th {
+  background-color: var(--{{PREFIX}}-surface);
+  color: var(--{{PREFIX}}-muted);
+}
+
+/* Hover and selected must stay visually DISTINCT. A resting-state scan will not catch
+ * either: the site's own `tr:hover` rule is more specific than a plain element rule. */
+html.{{PREFIX}}-dark tbody tr:hover {
+  background-color: var(--{{PREFIX}}-surface-2);
+}
+
+html.{{PREFIX}}-dark tbody tr[aria-selected='true'],
+html.{{PREFIX}}-dark tbody tr.selected {
+  background-color: var(--{{PREFIX}}-selected);
+  color: var(--{{PREFIX}}-text);
+}
+
+/* ---- forms ------------------------------------------------------------- */
+html.{{PREFIX}}-dark input,
+html.{{PREFIX}}-dark select,
+html.{{PREFIX}}-dark textarea {
+  background-color: var(--{{PREFIX}}-surface);
+  color: var(--{{PREFIX}}-text);
+  border: 1px solid var(--{{PREFIX}}-border);
+  border-radius: 4px;
+}
+
+html.{{PREFIX}}-dark input::placeholder,
+html.{{PREFIX}}-dark textarea::placeholder {
+  color: var(--{{PREFIX}}-muted);
+}
+
+html.{{PREFIX}}-dark button {
+  color: inherit;
+}
+
+html.{{PREFIX}}-dark button:focus-visible,
+html.{{PREFIX}}-dark a:focus-visible,
+html.{{PREFIX}}-dark input:focus-visible,
+html.{{PREFIX}}-dark select:focus-visible,
+html.{{PREFIX}}-dark textarea:focus-visible {
+  outline: 2px solid var(--{{PREFIX}}-accent);
+  outline-offset: 1px;
+}
+
+/* ---- navigation / tabs ------------------------------------------------- */
+html.{{PREFIX}}-dark nav,
+html.{{PREFIX}}-dark [role='tablist'] {
+  background-color: var(--{{PREFIX}}-surface);
+  border-color: var(--{{PREFIX}}-border);
+}
+
+html.{{PREFIX}}-dark [role='tab'] {
+  color: var(--{{PREFIX}}-muted);
+}
+
+html.{{PREFIX}}-dark [role='tab']:hover {
+  color: var(--{{PREFIX}}-text);
+  background-color: var(--{{PREFIX}}-surface-2);
+}
+
+html.{{PREFIX}}-dark [role='tab'][aria-selected='true'] {
+  color: var(--{{PREFIX}}-text);
+  background-color: var(--{{PREFIX}}-selected);
+  border-color: var(--{{PREFIX}}-border);
+}
+
+/* ---- scrollbars -------------------------------------------------------- */
+html.{{PREFIX}}-dark ::-webkit-scrollbar {
+  width: 12px;
+  height: 12px;
+}
+
+html.{{PREFIX}}-dark ::-webkit-scrollbar-track {
+  background: var(--{{PREFIX}}-bg);
+}
+
+html.{{PREFIX}}-dark ::-webkit-scrollbar-thumb {
+  background: #3a4556;
+  border: 3px solid var(--{{PREFIX}}-bg);
+  border-radius: 8px;
+}

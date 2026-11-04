@@ -1,0 +1,77 @@
+/* {{NAME}} — injected UI affordances (NOT the theme). Theme lives in theme/dark.css.
+ * Always injected; every rule is scoped to html.{{PREFIX}}-on so the extension stays
+ * invisible on any page where content/main.js bailed out. */
+
+html.{{PREFIX}}-on .{{PREFIX}}-action-btn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  padding: 3px;
+  border: 0;
+  border-radius: 3px;
+  background: transparent;
+  color: currentColor;
+  cursor: pointer;
+  line-height: 1;
+  opacity: 0.75;
+}
+
+html.{{PREFIX}}-on .{{PREFIX}}-action-btn:hover {
+  opacity: 1;
+  background-color: rgba(127, 127, 127, 0.18);
+}
+
+html.{{PREFIX}}-on .{{PREFIX}}-action-btn:focus-visible {
+  opacity: 1;
+  outline: 2px solid currentColor;
+  outline-offset: 1px;
+}
+
+/* Screen-reader-only text (e.g. the reason a control is disabled). */
+.{{PREFIX}}-visually-hidden {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  margin: -1px;
+  padding: 0;
+  overflow: hidden;
+  clip: rect(0 0 0 0);
+  white-space: nowrap;
+  border: 0;
+}
+
+/* Toast */
+.{{PREFIX}}-toast {
+  position: fixed;
+  right: 16px;
+  bottom: 16px;
+  z-index: 2147483647;
+  max-width: 420px;
+  padding: 8px 12px;
+  border-radius: 4px;
+  font-size: 13px;
+  background: #232833;
+  color: #dfe3ea;
+  box-shadow: 0 4px 16px rgba(0, 0, 0, 0.35);
+  opacity: 0;
+  transform: translateY(6px);
+  transition: opacity 0.15s ease, transform 0.15s ease;
+  pointer-events: none;
+}
+
+.{{PREFIX}}-toast--show {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+.{{PREFIX}}-toast[data-kind='error'] {
+  background: #4a1f22;
+  color: #ffd7d7;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .{{PREFIX}}-toast,
+  .{{PREFIX}}-action-btn {
+    transition: none;
+  }
+}
